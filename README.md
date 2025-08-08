@@ -3,17 +3,135 @@
       <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Maulana Yasyfa'u Al Azhiim | Web Developer & Ethical Hacker</title>
+          <title>ByteBreakerGhost-69</title>
           <meta name="description" content="Portofolio profesional Maulana Yasyfa'u Al Azhiim Yudho Leksono - Web Developer & Ethical Hacker lulusan SMP/SMA Islam Plus Hidayatut Thullab">
           <script src="https://cdn.tailwindcss.com"></script>
           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
           <style>
               :root {
-                  --dark-blue: #001f3f;
+                  --dark-blue: #13406d;
                   --black: #0a0a0a;
                   --accent: #4A90E2;
               }
-          
+              
+              /* ===== SPLASH SCREEN ===== */
+              .splash-screen {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--black) 100%);
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  z-index: 9999;
+                  transition: opacity 0.5s ease;
+              }
+      
+              .splash-content {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  width: 100%;
+                  max-width: 1200px;
+                  padding: 0 20px;
+              }
+      
+              .splash-logo {
+                  font-size: 3rem;
+                  font-weight: 700;
+                  margin-bottom: 2rem;
+                  position: relative;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  border-right: 3px solid var(--accent);
+                  animation: typing 8s steps(80, end), blink-caret 0.75s step-end infinite;
+              }
+      
+              .characters-container {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  width: 100%;
+                  position: relative;
+                  margin: 3rem 0;
+              }
+      
+              .human-character {
+                  width: 250px;
+                  animation: float 4s ease-in-out infinite;
+                  transform: translateX(-50px);
+                  opacity: 0;
+                  animation: 
+                      fadeInLeft 1s ease-out forwards,
+                      float 4s ease-in-out 1s infinite;
+              }
+      
+              .robot-character {
+                  width: 250px;
+                  animation: float 4s ease-in-out infinite 0.5s;
+                  transform: translateX(50px);
+                  opacity: 0;
+                  animation: 
+                      fadeInRight 1s ease-out forwards,
+                      float 4s ease-in-out 1.5s infinite;
+              }
+      
+              .connecting-line {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  width: 60%;
+                  height: 2px;
+                  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+                  animation: pulse-line 2s ease-in-out infinite;
+              }
+      
+              .loading-bar {
+                  width: 300px;
+                  height: 6px;
+                  background: rgba(46, 17, 126, 0.2);
+                  border-radius: 3px;
+                  overflow: hidden;
+                  margin-top: 2rem;
+              }
+      
+              .loading-progress {
+                  height: 100%;
+                  background: var(--accent);
+                  width: 0;
+                  animation: loading 5s ease-in-out forwards;
+              }
+      
+              /* Animasi Khusus Splash */
+              @keyframes fadeInLeft {
+                  from { opacity: 0; transform: translateX(-50px); }
+                  to { opacity: 1; transform: translateX(0); }
+              }
+      
+              @keyframes fadeInRight {
+                  from { opacity: 0; transform: translateX(50px); }
+                  to { opacity: 1; transform: translateX(0); }
+              }
+      
+              @keyframes pulse-line {
+                  0%, 100% { width: 60%; opacity: 0.7; }
+                  50% { width: 80%; opacity: 1; }
+              }
+      
+              @keyframes loading {
+                  from { width: 0; }
+                  to { width: 100%; }
+              }
+      
+              .main-content {
+                  display: none;
+              }
+      
+      
               body {
                   font-family: 'Poppins', sans-serif;
                   background-color: var(--black);
@@ -28,7 +146,7 @@
               .bg-gradient-dark {
                   background: linear-gradient(135deg, var(--dark-blue) 0%, var(--black) 100%);
               }
-        
+              
               .hover-scale {
                   transition: transform 0.3s ease;
               }
@@ -115,26 +233,23 @@
               /* ===== ANIMASI SLIDER TOOLS ===== */
               .tools-slider-container {
                   overflow: hidden;
+                  white-space: nowrap;
                   position: relative;
-                  padding: 20px 0;
               }
       
               .tools-slider-track {
-                  display: flex;
-                  gap: 30px;
-                  width: max-content;
-                  animation: slide-horizontal 30s linear infinite;
+                  display: inline-block;
+                  animation: slideLoop 20s linear infinite;
               }
       
               .tools-slider-track:hover {
                   animation-play-state: paused;
               }
       
-              @keyframes slide-horizontal {
+              @keyframes slideLoop {
                   0% { transform: translateX(0); }
-                  100% { transform: translateX(-50%); }
+                  100% { transform: translateX(-50%); } /* Geser ke kiri setengah panjang total */
               }
-      
               /* Efek item tool */
               .tool-item {
                   background: rgba(28, 16, 73, 0.5);
@@ -172,9 +287,152 @@
                       padding-bottom: 15px;
                   }
               }
+      
+              /* Typing effect styles */
+              #typing-text {
+                  border-right: 2px solid #4A90E2;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  display: inline-block;
+                  min-height: 1.2em;
+              }
+      
+              #typing-text.finished-typing {
+                  border-right: none;
+              }
+      
+             /* Efek ketik dengan kursor yang hilang setelah selesai */
+              .typing-effect {
+                  overflow: hidden;
+                  white-space: nowrap;
+                  position: relative;
+                  border-right: 2px solid transparent; /* Awalnya transparan */
+                  animation: 
+                      typing 3.5s steps(40, end) forwards,
+                      blink-caret .75s step-end 4.6667s; /* Sesuaikan dengan durasi typing */
+              }
+      
+              @keyframes typing {
+                  from { width: 0 }
+                  to { width: 100% }
+              }
+      
+              @keyframes blink-caret {
+                  from, to { border-color: transparent }
+                  50% { border-color: #4A90E2; }
+              }
+      
+                      /* SPLASH SCREEN FIXED */
+              .splash-screen {
+                  position: fixed;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  background: linear-gradient(135deg, var(--dark-blue) 0%, var(--black) 100%);
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  z-index: 9999;
+                  opacity: 1;
+                  transition: opacity 2.5s ease;
+              }
+      
+              .main-content {
+                  display: none;
+              }
+      
+              /* ANIMASI TYPING FIX */
+              .splash-logo {
+                  font-size: 3rem;
+                  font-weight: 700;
+                  color: white;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  border-right: 3px solid var(--accent);
+                  animation: 
+                      typing 2s steps(40, end) forwards,
+                      blink-caret 0.75s step-end infinite;
+              }
+      
+              /* KARAKTER ANIMASI */
+              .human-character {
+                  width: 250px;
+                  animation: 
+                      fadeInLeft 1s ease-out forwards,
+                      float 4s ease-in-out 1s infinite;
+              }
+      
+              .robot-character {
+                  width: 250px;
+                  animation: 
+                      fadeInRight 1s ease-out forwards,
+                      float 4s ease-in-out 1.5s infinite;
+              }
+      
+              /* KEYFRAMES BARU */
+              @keyframes fadeInLeft {
+                  from { opacity: 0; transform: translateX(-50px); }
+                  to { opacity: 1; transform: translateX(0); }
+              }
+      
+              @keyframes fadeInRight {
+                  from { opacity: 0; transform: translateX(50px); }
+                  to { opacity: 1; transform: translateX(0); }
+              }
+      
+      
           </style>
       </head>
+      
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              // Typing effect
+              const text = "Web Developer & Ethical Hacker";
+              const typingElement = document.getElementById('typing-text');
+              let i = 0;
+              
+              function typeWriter() {
+                  if (i < text.length) {
+                      typingElement.innerHTML += text.charAt(i);
+                      i++;
+                      setTimeout(typeWriter, 150); // Kecepatan ketik (ms)
+                  } else {
+                      // Setelah selesai, tambahkan kursor yang berkedip
+                      typingElement.classList.add('finished-typing');
+                  }
+              }
+              
+              // Mulai efek ketik setelah halaman dimuat
+              setTimeout(typeWriter, 1500);
+          });
+      </script>
+      
       <body>
+      <!-- Splash Screen -->
+      <div class="splash-screen" id="splashScreen">
+          <div class="splash-content">
+              <div class="splash-logo" id="splashLogo"></div>
+              
+              <div class="characters-container">
+                  <img src="https://i.postimg.cc/JnTH0Wmr/Whats-App-Image-2025-08-07-at-23-32-28.jpg" alt="Foto Profil" class="human-character">
+                  <div class="connecting-line"></div>
+                  <img src="https://i.postimg.cc/CLLtpkLT/CEO-square.jpg" alt="Robot AI" class="robot-character">
+              </div>
+              
+              <div class="loading-bar">
+                  <div class="loading-progress"></div>
+              </div>
+          </div>
+      </div>
+      
+      <!-- Konten Utama -->
+      <div class="main-content">
+          <!-- Semua konten website yang ada -->
+      </div>
+      <!-- Floating Stars Background -->
+      <div id="stars-container" class="stars"></div>
+      
           <!-- Floating Stars Background -->
           <div id="stars-container" class="stars"></div>
           
@@ -182,7 +440,7 @@
           <nav class="navbar fixed w-full bg-black bg-opacity-80 z-50">
               <div class="container mx-auto px-6 py-4">
                   <div class="flex items-center justify-between">
-                      <a href="#" class="text-2xl font-bold text-white hover:text-blue-400 transition">MYAYL</a>
+                      <a href="#" class="text-2xl font-bold text-white hover:text-blue-400 transition">my website</a>
                       <div class="hidden md:flex space-x-8">
                           <a href="#home" class="text-white hover:text-blue-400 transition">Home</a>
                           <a href="#about" class="text-white hover:text-blue-400 transition">Tentang</a>
@@ -198,14 +456,14 @@
                   </div>
               </div>
           </nav>
-
+      
           <!-- Hero Section -->
           <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-dark pt-20">
               <div class="container mx-auto px-6 py-12 md:py-24">
                   <div class="flex flex-col md:flex-row items-center">
                       <div class="md:w-1/2 mb-12 md:mb-0">
                           <h1 class="text-4xl md:text-6xl font-bold mb-4">Maulana Yasyfa'u Al Azhiim Yudho Leksono</h1>
-                          <h2 class="text-2xl md:text-3xl text-blue-400 mb-6">Web Developer & Ethical Hacker</h2>
+                          <h2 class="text-2xl md:text-3xl text-blue-400 mb-6 typing-effect">Web Developer & Ethical Hacker</h2>
                           <p class="text-lg mb-8 opacity-90">Mahir dalam membangun website modern dan sistem keamanan siber yang kokoh.</p>
                           <div class="flex space-x-4">
                               <a href="#contact" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg">
@@ -361,69 +619,69 @@
                   </div>
                   
                   <!-- ===== SLIDER TOOLS ===== -->
-                  <div class="mt-12 relative overflow-hidden py-6">
-                      <div class="flex gap-8 animate-slide hover:pause">
-                          <!-- Baris Tools Asli -->
-                          <div class="flex gap-8 shrink-0">
-                              <!-- HTML5 -->
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/nLcc2808/images-javascript.png" alt="JavaScript" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">JavaScript</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/qMyRMxzF/images-commix.png" alt="commix" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">commix</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/J4f1fDxQ/images-sqlmap.png" alt="sqlmap" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">sqlmap</p>
-                              </div>
-                          </div>
-                          
-                          <!-- Duplikat untuk efek loop -->
-                          <div class="flex gap-8 shrink-0" aria-hidden="true">
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">HTML</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/DzzY55Gp/download-css.png" alt="CSS3" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">CSS</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/rm46CQXX/images.png" alt="Kali Linux" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">Kali Linux</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/P5w42cVq/0-Fp841-N-400x400-blackarch-linux.jpg" alt="BlackArch Linux" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">BlackArch Linux</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/MGG1gFdR/imagesnmap.jpg" alt="nmap" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">nmap</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/x1wsQYNH/images-msfconsole.png" alt="metasploit" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">metasploit</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/4NtP1qSx/images-brup-suite.jpg" alt="burpsuite" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">burpsuite</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/Mp7Bc8r1/images-john.png" alt="john the ripper" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">john the ripper</p>
-                              </div>
-                              <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
-                                  <img src="https://i.postimg.cc/L6ZLpPtC/1-xf-3-MVfi-o-Xhw7-B-ywh5-WQ-hydra.jpg" alt="hydra" class="w-12 h-12 mx-auto mb-2">
-                                  <p class="font-mono text-sm">hydra</p>
-                              </div>
-                          </div>
+        <div class="mt-12 relative overflow-hidden py-6">
+          <div class="tools-slider-container">
+              <div class="tools-slider-track">
+                  <!-- Original Tools Row -->
+                  <div class="flex gap-8 shrink-0">
+                      <!-- HTML5 -->
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">HTML</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/DzzY55Gp/download-css.png" alt="CSS3" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">CSS</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/nLcc2808/images-javascript.png" alt="JavaScript" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">JavaScript</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/rm46CQXX/images.png" alt="Kali Linux" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">Kali Linux</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/P5w42cVq/0-Fp841-N-400x400-blackarch-linux.jpg" alt="BlackArch Linux" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">BlackArch Linux</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/MGG1gFdR/imagesnmap.jpg" alt="nmap" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">nmap</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/x1wsQYNH/images-msfconsole.png" alt="metasploit" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">metasploit</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/4NtP1qSx/images-brup-suite.jpg" alt="burpsuite" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">burpsuite</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/qMyRMxzF/images-commix.png" alt="commix" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">commix</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/J4f1fDxQ/images-sqlmap.png" alt="sqlmap" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">sqlmap</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/Mp7Bc8r1/images-john.png" alt="john the ripper" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">john the ripper</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/L6ZLpPtC/1-xf-3-MVfi-o-Xhw7-B-ywh5-WQ-hydra.jpg" alt="hydra" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">hydra</p>
+                      </div>
+                      <div class="bg-black/50 p-4 rounded-lg text-center min-w-[120px] border border-blue-400/20 hover:border-blue-400/50">
+                          <img src="https://i.postimg.cc/7Yw2M5Ff/st-small-507x507-pad-600x600-f8f8f8-u4.jpg" alt="wireshark" class="w-12 h-12 mx-auto mb-2">
+                          <p class="font-mono text-sm">wireshark</p>
                       </div>
                   </div>
               </div>
-          </section>
-      
+          </div>
+      </div>
+                 
           <!-- Portfolio Section -->
           <section id="portfolio" class="py-20 bg-black">
               <div class="container mx-auto px-6">
@@ -534,7 +792,7 @@
           </script>
       </head>
       <body class="bg-gray-900">
-
+      
           <!-- Contact Section -->
           <section id="contact" class="relative py-20 bg-gradient-to-b from-primary to-secondary z-10 overflow-visible">
               <div class="container mx-auto px-6">
@@ -740,14 +998,83 @@
                   this.reset();
               });
           </script>
+      
+      <script>
+          // Splash screen transition
+          window.addEventListener('load', function() {
+              setTimeout(function() {
+                  const splashScreen = document.getElementById('splashScreen');
+                  const mainContent = document.querySelector('.main-content');
+                  
+                  // Fade out splash screen
+                  splashScreen.style.opacity = '0';
+                  
+                  // Show main content after splash screen fades out
+                  setTimeout(function() {
+                      splashScreen.style.display = 'none';
+                      document.body.style.overflow = 'auto'; // Enable scrolling
+                      
+                      // Show all elements with main-content class
+                      document.querySelectorAll('.main-content').forEach(el => {
+                          el.style.display = 'block';
+                      });
+                      
+                      // Initialize stars background if needed
+                      if(typeof initStars === 'function') initStars();
+                  }, 500);
+              }, 3500); // Total splash screen duration (3.5s)
+          });
+      </script>
+      
+      <script>
+      // SPLASH SCREEN FUNCTION
+      function initSplashScreen() {
+          const splashScreen = document.getElementById('splashScreen');
+          const splashLogo = document.getElementById('splashLogo');
+          const mainContent = document.querySelector('.main-content');
+          
+          // 1. Typing animation
+          const name = "Maulana Yasyfa'u Al Azhiim";
+          let i = 0;
+          
+          function typeWriter() {
+              if (i < name.length) {
+                  splashLogo.textContent += name.charAt(i);
+                  i++;
+                  setTimeout(typeWriter, 100);
+              }
+          }
+          
+          // 2. Start animations
+          typeWriter();
+          
+          // 3. Hide after 3.5s
+          setTimeout(() => {
+              splashScreen.style.opacity = '0';
+              
+              setTimeout(() => {
+                  splashScreen.style.display = 'none';
+                  mainContent.style.display = 'block';
+                  
+                  // Enable scrolling
+                  document.body.style.overflow = 'auto';
+              }, 800); // Match with CSS transition
+          }, 3500);
+      }
+      
+      // Run when DOM is ready
+      document.addEventListener('DOMContentLoaded', initSplashScreen);
+      </script>
+      
       </body>
+      
       </html>
       <!-- Footer -->
           <footer class="bg-black py-8">
               <div class="container mx-auto px-6">
                   <div class="flex flex-col md:flex-row justify-between items-center">
                       <div class="mb-4 md:mb-0">
-                          <a href="#" class="text-2xl font-bold text-white hover:text-blue-400 transition">MYAYL</a>
+                          <a href="#" class="text-2xl font-bold text-white hover:text-blue-400 transition">my website</a>
                           <p class="text-gray-400 mt-2">Web Developer & Ethical Hacker</p>
                       </div>
                       <div class="flex space-x-6">
@@ -859,3 +1186,4 @@
           </script>
       </body>
       </html>
+      
